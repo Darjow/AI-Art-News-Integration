@@ -4,13 +4,12 @@ from util.volatileDictionary import VolatileDict
 from datetime import datetime, time
 
 class AbstractThread(threading.Thread, metaclass=abc.ABCMeta):
-    def __init__(self, volatile_dict: VolatileDict, base_url: str):
+    def __init__(self, volatile_dict: VolatileDict):
         super().__init__()
         now = datetime.now()
     
         self.dict = volatile_dict
         self.limit = datetime(year=now.year, month=now.month, day=now.day, hour=0, minute=0, second=0)
-        self.base_url = base_url
         
         
     
