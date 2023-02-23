@@ -26,15 +26,12 @@ class HLNThread(AbstractThread):
       current = self.articles.pop()
       
       response = requests.get(current)
-  
       bs = BeautifulSoup(response.text, "html.parser")
-      time.sleep(2)
-      print(response.text)
       articles = bs.find_all("article")
       for article in articles:
         title_element = article.find("h2", class_='title')
         if title_element:
           title = title_element.text.strip()
-          print(title)
+          self.append_to_dict(current, title)
       
       
