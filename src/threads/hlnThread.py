@@ -1,13 +1,25 @@
-import threading
+from threads.abstractThread import AbstractThread
 from util.volatileDictionary import VolatileDict
 
-class HLNThread(threading.Thread):
+class HLNThread(AbstractThread):
   
   def __init__(self, volatile_dict:VolatileDict ):
-    super().__init__()
-    self.volatile_dict = volatile_dict
+    super().__init__(volatile_dict, "www.hln.be")
+    
+    self.routes = [
+      "/buitenland/",
+      "/binnenland/",
+      "/vtm-nieuws/"
+    ]
+
 
   def start_scraping(self): 
-    result = "some result"
-    print(result)
-    self.volatile_dict.add_result(self.name, result)
+    print(self.limit)
+    print(self.base_url)
+    print(self.routes)
+    
+    self.append_to_dict("some")
+    self.append_to_dict("thing")
+    
+    
+    self.output_dict()

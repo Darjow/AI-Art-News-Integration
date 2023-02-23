@@ -1,6 +1,6 @@
 from threads.hlnThread import HLNThread
 from util.volatileDictionary import VolatileDict
-from threads.scrapingThread import AbstractThread
+from threads.abstractThread import AbstractThread
 from typing import List
 from concurrent.futures import ThreadPoolExecutor
 
