@@ -10,7 +10,8 @@ class AbstractThread(threading.Thread, metaclass=abc.ABCMeta):
     
         self.dict = volatile_dict
         self.limit = datetime(year=now.year, month=now.month, day=now.day, hour=0, minute=0, second=0)
-        
+        self.guard = []
+
         
     
     @abc.abstractmethod
