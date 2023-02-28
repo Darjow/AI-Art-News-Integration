@@ -18,6 +18,9 @@ def main():
   for future in futures:
     future.result()
   
+  for i in volatile_dict.get_dict():
+    print(volatile_dict.get_dict()[i])
+  
 
 if __name__ == "__main__":
   main()

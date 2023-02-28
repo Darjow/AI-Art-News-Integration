@@ -40,18 +40,21 @@ class HLNThread(AbstractThread):
       bs = BeautifulSoup(response.text, "html.parser")
       articles = bs.find_all("article")
       time = bs.find_all(name="time", attrs={"class", "article__time"})
+      title = bs.find_all(name="h1", attrs={"class", "article__title"})
       
       if len(time) == 1:
         date = time[0]["datetime"]
-        date_format = "%y-%m-%d, %H:%M"
+        date_format = "%d-%m-%y, %H:%M"
         try:
           date_time_obj = datetime.strptime(date, date_format)
           if date_time_obj > self.limit:
-            self.append_to_dict(self.base_url, current)
-            print("Found an article of today")
+            if len(title) == 1:
+              self.append_to_dict(title[0].text)
+              print("Found an article of today")
           
         except(ValueError):
           print("Article from multiple days ago.")
+      
             
       for article in articles:
         first = article.findChild()
@@ -62,7 +65,7 @@ class HLNThread(AbstractThread):
         if any(route in first.get('href', '') for route in self.routes):
           self.add_article(first["href"])         
     
-    self.output_dict()
+    
 
         
       
