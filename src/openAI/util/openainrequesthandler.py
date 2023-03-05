@@ -21,9 +21,7 @@ class RequestHandler:
         }
         response = requests.post(endpoint, json=payload, headers=self.headers)
         data = response.json()
-        print(data)
         generated_text = data["choices"][0]["text"]
-        finish_reason = data['choices'][0]['finish_reason']
 
 
         return generated_text
