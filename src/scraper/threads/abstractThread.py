@@ -1,6 +1,6 @@
 import threading
 import abc
-from util.volatileDictionary import VolatileDict
+from scraper.util.volatileDictionary import VolatileDict
 from datetime import datetime, time
 
 class AbstractThread(threading.Thread, metaclass=abc.ABCMeta):

@@ -13,8 +13,15 @@ class VolatileDict:
             self._dict[self.index] = [base_url, title]
             self.index += 1
             
+    def output_json():
+        with self._lock:
+            json_str = json.dumps(my_dict)
+            return json_str
             
-    def get_dict(self):
+  
+        
+            
+    def print_dic(self):
         with self._lock:
             for key, value in self._dict.items():
                 print(f"{value[0]} - {value[1]}")

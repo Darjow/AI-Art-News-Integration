@@ -1,5 +1,5 @@
-from threads.abstractThread import AbstractThread
-from util.volatileDictionary import VolatileDict
+from scraper.threads.abstractThread import AbstractThread
+from scraper.util.volatileDictionary import VolatileDict
 from bs4 import BeautifulSoup
 import requests
 import time

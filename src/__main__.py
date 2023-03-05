@@ -1,9 +1,10 @@
-from threads.hlnThread import HLNThread
-from threads.deMorgenThread import DeMorgenThread
-from util.volatileDictionary import VolatileDict
-from threads.abstractThread import AbstractThread
+from scraper.threads.hlnThread import HLNThread
+from scraper.threads.deMorgenThread import DeMorgenThread
+from scraper.util.volatileDictionary import VolatileDict
+from scraper.threads.abstractThread import AbstractThread
 from typing import List
 from concurrent.futures import ThreadPoolExecutor
+from openAI.chatgpt.chatgpt import ChatGPT
 import locale
 
 threads: List[AbstractThread] = []
@@ -23,9 +24,13 @@ def main():
   
   for future in futures:
     future.result()
+    
+  parsed_data = volatile_dict.output_json()
+  print(parsed_data)
   
-  for i in volatile_dict.get_dict():
-    print(volatile_dict.get_dict()[i])
+  chad = ChatGPT()
+  chad.get_response(parsed_data)
+  
   
 
 if __name__ == "__main__":
