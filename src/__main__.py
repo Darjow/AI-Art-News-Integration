@@ -14,10 +14,10 @@ def main():
 
   volatile_dict = VolatileDict()
   
-  hln_thread = HLNThread(volatile_dict)
+  #hln_thread = HLNThread(volatile_dict)
   deMorgen_thread = DeMorgenThread(volatile_dict)
   
-  threads.append(hln_thread)
+  #threads.append(hln_thread)
   threads.append(deMorgen_thread)
   with ThreadPoolExecutor() as pool:
     futures = [pool.submit(thread.start_scraping) for thread in threads]
@@ -26,10 +26,9 @@ def main():
     future.result()
     
   parsed_data = volatile_dict.output_json()
-  print(parsed_data)
-  
+ 
   chad = ChatGPT()
-  chad.get_response(parsed_data)
+  chad.ask(parsed_data)
   
   
 

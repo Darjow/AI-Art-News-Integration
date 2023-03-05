@@ -13,9 +13,9 @@ class VolatileDict:
             self._dict[self.index] = [base_url, title]
             self.index += 1
             
-    def output_json():
+    def output_json(self):
         with self._lock:
-            json_str = json.dumps(my_dict)
+            json_str = json.dumps(self._dict)
             return json_str
             
   
