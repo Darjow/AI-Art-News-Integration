@@ -14,7 +14,6 @@ class RequestHandler:
 
     def ask_chatgpt(self, prompt, temperature=0.5):
         endpoint = self.endpoint_url + "/engines/davinci-codex/completions"
-        print(prompt)
         payload = {
             "prompt": prompt,
             "temperature": temperature,        
