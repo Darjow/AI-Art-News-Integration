@@ -19,6 +19,6 @@ class AbstractThread(threading.Thread, metaclass=abc.ABCMeta):
         pass
     
     
-    def append_to_dict(self,title ): #in de toekomst: baseurl, title, likes, views, comments, ... 
-        self.dict.add_result(title)
+    def append_to_dict(self, base_url, title ): #in de toekomst: baseurl, title, likes, views, comments, ... 
+        self.dict.add_result(base_url, title)
         
