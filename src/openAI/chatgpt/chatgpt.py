@@ -1,11 +1,10 @@
 from openAI.util.openainrequesthandler import RequestHandler
 
 
-INIT_CONV = "Dit is ons gesprek houd hier rekening mee, en reageer op het laatste bericht. "
 class ChatGPT:
     def __init__(self):
         self.request_handler = RequestHandler()
-        self.conversation = [INIT_CONV]
+        self.conversation = []
 
     def ask(self, prompt):
         self.add_chat(prompt, False)
@@ -15,7 +14,7 @@ class ChatGPT:
         return response
     
     def start_new_conversation(self, data):
-        self.conversation = [INIT_CONV]
+        self.conversation = []
         
         self.ask(f"""
             Ik zou graag een kunstwerk willen genereren met dall-e, gebaseerd op de hoogtepunten van vandaag. 
