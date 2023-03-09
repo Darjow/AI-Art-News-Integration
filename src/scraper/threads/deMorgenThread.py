@@ -2,8 +2,6 @@ from scraper.threads.abstractThread import AbstractThread
 from scraper.util.volatileDictionary import VolatileDict
 from bs4 import BeautifulSoup
 import requests
-import time
-from datetime import datetime
 
 class DeMorgenThread(AbstractThread):
   def __init__(self, volatile_dict: VolatileDict):

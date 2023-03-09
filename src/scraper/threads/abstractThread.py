@@ -20,6 +20,7 @@ class AbstractThread(threading.Thread, metaclass=abc.ABCMeta):
     self.time_tag = time_tag
     self.time_class = time_class
     self.base_url = base_url
+    self.routes = routes
     super().__init__()
     self.headers = {
       "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
@@ -30,7 +31,7 @@ class AbstractThread(threading.Thread, metaclass=abc.ABCMeta):
       "Cookie":"authId=84f9c58f-0da1-4752-a294-74df52a18ec8;",
     }
     self.current = None
-    
+    self.article_link = None
 
   def append_to_dict(self, base_url, title ):
     self.dict.add_result(base_url, title)
@@ -41,26 +42,40 @@ class AbstractThread(threading.Thread, metaclass=abc.ABCMeta):
       print(f"[{type(self).__name__}]: {len(self.articles)} to process")
       self.current = self.articles.pop()
       if self.should_scrape_article(self.current):
-        self.scrape_article(self.current)
+        self.scrape_article()
           
 
   def should_scrape_article(self, article):
-    date = article.find(name="time", attrs={"class": self.time_class})
-    if date == None or len(date) != 1:
-      return False
-    try:
-      date_time_obj = datetime.strptime(date, self.dateformat)
-      return date_time_obj >= self.limit
-    except(ValueError):
+    a_href = article.find(name="a")
+    
+    if a_href == None:
       return False
     
-    return False
-  
+    if any(route in a_href.get('href', '') for route in self.routes):
+      self.article_link = a_href["href"]
+      return True   
 
-  def scrape_article(self, article):
-    title = article.find(name=self.title_tag, attrs={"class": self.title_class})
-    if len(title) == 1:
-      self.append_to_dict(self.base_url, title[0].text.strip())
+
+  def scrape_article(self):
+    response = requests.get(self.article_link, headers=self.headers)
+    bs = BeautifulSoup(response.text, "html.parser")
+    date = bs.find_all(name=self.time_tag, attrs={"class": self.time_class})    
+    title = bs.find_all(name=self.title_tag, attrs={"class": self.title_class})
+    
+    if len(date) != 1:
+      return
+    
+    if len(title) != 1:
+      return
+    
+    date_obj = date[0]["datetime"]
+    try:
+      date_time_obj = datetime.strptime(date_obj, self.dateformat)
+      if date_time_obj >= self.limit:
+        self.append_to_dict(self.base_url,title[0].text)
+    except(ValueError):
+      return
+    
 
   def on_start(self):
     response = requests.get(self.base_url, headers = self.headers)
