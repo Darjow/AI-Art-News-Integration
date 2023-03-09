@@ -7,14 +7,17 @@ import requests
 from bs4 import BeautifulSoup
 
 class AbstractThread(threading.Thread, metaclass=abc.ABCMeta):
-  def __init__(self, volatile_dict: VolatileDict, dateformat: str, title_class: str, time_class: str, base_url: str):
+  def __init__(self, volatile_dict: VolatileDict, dateformat: str, title_tag: str, title_class: str, time_tag: str, time_class: str, base_url: str, routes: []):
     locale.setlocale(locale.LC_TIME, 'nl_NL.utf8')
     now = datetime.now()
     self.dict = volatile_dict
     self.limit = datetime(year=now.year, month=now.month, day=now.day, hour=0, minute=0, second=0)
     self.guard = []
+    self.articles = []
     self.dateformat = dateformat
+    self.title_tag = title_tag
     self.title_class = title_class
+    self.time_tag = time_tag
     self.time_class = time_class
     self.base_url = base_url
     super().__init__()
@@ -26,36 +29,41 @@ class AbstractThread(threading.Thread, metaclass=abc.ABCMeta):
       "Cache-Control": "max-age=0",
       "Cookie":"authId=84f9c58f-0da1-4752-a294-74df52a18ec8;",
     }
+    self.current = None
     
 
   def append_to_dict(self, base_url, title ):
     self.dict.add_result(base_url, title)
     
   def start_scraping(self):
-    self.on_start()
-    while True:
-      articles = self.get_articles()
-      if not articles:
-        break
-      for article in articles:
-        if self.should_scrape_article(article):
-          self.scrape_article(article)
+    self.on_start()    
+    while len(self.articles) > 0:
+      print(f"[{type(self).__name__}]: {len(self.articles)} to process")
+      self.current = self.articles.pop()
+      if self.should_scrape_article(self.current):
+        self.scrape_article(self.current)
+          
 
   def should_scrape_article(self, article):
-    date = article.find(name="time", attrs={"class": self.time_class}).get("datetime")
-    date_time_obj = datetime.strptime(date, self.dateformat)
-    return date_time_obj >= self.limit
+    date = article.find(name="time", attrs={"class": self.time_class})
+    if date == None or len(date) != 1:
+      return False
+    try:
+      date_time_obj = datetime.strptime(date, self.dateformat)
+      return date_time_obj >= self.limit
+    except(ValueError):
+      return False
+    
+    return False
+  
 
   def scrape_article(self, article):
-    title = article.find(name="p", attrs={"class": self.title_class})
-    if title is not None:
-      self.append_to_dict(self.base_url, title.text.strip())
+    title = article.find(name=self.title_tag, attrs={"class": self.title_class})
+    if len(title) == 1:
+      self.append_to_dict(self.base_url, title[0].text.strip())
 
   def on_start(self):
-    print(self.base_url)
     response = requests.get(self.base_url, headers = self.headers)
     bs = BeautifulSoup(response.text, "html.parser")
-    articles = bs.find_all("article")
-    time = bs.find_all(name="time", attrs={"class", "article__time"})
-    title = bs.find_all(name="h1", attrs={"class", "article__title"})
+    self.articles = bs.find_all("article")
         
