@@ -13,6 +13,6 @@ class DeMorgenThread(AbstractThread):
     response = requests.get(self.base_url, headers = self.headers)
     bs = BeautifulSoup(response.text, "html.parser")
     nav = bs.find_all("a", attrs={"class", "app-navigation__link"})
-    self.routes = [i["href"] for i in nav]
-    self.routes.append("/nieuws")
-    self.routes.append("/snelnieuws")
+    self.routes = [self.base_url + i["href"] for i in nav]
+    self.routes.append(self.base_url + "/nieuws")
+    self.routes.append(self.base_url + "/snelnieuws")

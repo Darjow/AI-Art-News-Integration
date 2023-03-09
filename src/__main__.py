@@ -24,7 +24,7 @@ def start_scraping():
   deMorgen_thread = DeMorgenThread(volatile_dict)
   
   threads.append(hln_thread)
-  #threads.append(deMorgen_thread)
+  threads.append(deMorgen_thread)
   with ThreadPoolExecutor() as pool:
     futures = [pool.submit(thread.start_scraping) for thread in threads]
   

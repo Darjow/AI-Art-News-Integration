@@ -47,10 +47,20 @@ class AbstractThread(threading.Thread, metaclass=abc.ABCMeta):
 
   def should_scrape_article(self, article):
     a_href = article.find(name="a")
-    
+    temp = None
+
     if a_href == None:
       return False
+  
+
+    if a_href["href"].startswith("/"):
+      temp = self.base_url + a_href["href"]
     
+    if temp != None:
+      if any(route in temp for route in self.routes):
+        self.article_link = temp
+        return True
+      
     if any(route in a_href.get('href', '') for route in self.routes):
       self.article_link = a_href["href"]
       return True   
@@ -72,7 +82,7 @@ class AbstractThread(threading.Thread, metaclass=abc.ABCMeta):
     try:
       date_time_obj = datetime.strptime(date_obj, self.dateformat)
       if date_time_obj >= self.limit:
-        self.append_to_dict(self.base_url,title[0].text)
+        self.append_to_dict(self.base_url,title[0].text.strip())
     except(ValueError):
       return
     
