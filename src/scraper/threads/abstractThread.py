@@ -2,9 +2,10 @@ import threading
 import abc
 from scraper.util.volatileDictionary import VolatileDict
 from datetime import datetime, time
-
+import locale
 class AbstractThread(threading.Thread, metaclass=abc.ABCMeta):
     def __init__(self, volatile_dict: VolatileDict):
+        locale.setlocale(locale.LC_TIME, 'nl_NL.utf8')
         super().__init__()
         now = datetime.now()
     

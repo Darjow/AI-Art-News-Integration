@@ -4,14 +4,13 @@ class ChatGPT:
     def __init__(self):
         self.request_handler = RequestHandler()
 
+#in nederlands
     def ask(self, data):
         prompt = f"""
-        I would like to generate an artpiece with dall-e based on the highlights of today. 
-        In the following json, u will find the following keys:
-            - Base_url:  the website it has retrieved the article
-            - Title: the title of the article. 
-        Can you link the most similiar posts from the different base_urls to determine the highlights of the day? 
-        What would be the prompt i would need to send to dall-e in order to generate an artpiece based of today?      
+        I would like to generate an artpiece with dall-e based on the highlights of today. Can you look at the different website uri's and 
+        see which posts are similiar? If there are similiair posts, give me 1 sentance that combines these posts to generate an artpiece.  
+        In the following json, u will find the following data : "website_uri" : [list of article titles]
+        Just respond with the prompt for DallE.
     {data}\n"""
         response = self.request_handler.ask_chatgpt(prompt)
-        return response.strip()
+        return response.strip() 

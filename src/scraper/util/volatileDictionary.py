@@ -13,15 +13,12 @@ class VolatileDict:
             self._dict[self.index] = [base_url, title]
             self.index += 1
             
-    def output_json(self):
-        with self._lock:
-            json_str = json.dumps(self._dict)
-            return json_str
-            
-  
-        
-            
-    def print_dic(self):
-        with self._lock:
-            for key, value in self._dict.items():
-                print(f"{value[0]} - {value[1]}")
+    def output_dict(self):
+        url_dict = {}
+        for key, value in self._dict.items():
+            url = value[0] 
+            if url in url_dict:
+                url_dict[url].append(value[1]) 
+            else:
+                url_dict[url] = [value[1]] 
+        return url_dict
