@@ -8,6 +8,6 @@ class RequestHandler:
 
     def ask_chatgpt(self, conversation):
         _prompt = f"reageer op volgende gesprek: {conversation}"
-        response = openai.Completion.create(model="text-davinci-003", prompt=_prompt, temperature=0, max_tokens=100)
+        response = openai.Completion.create(model="text-davinci-003", prompt=_prompt, temperature=0, max_tokens=200)
         generated_text = response["choices"][0]["text"].strip()
         return generated_text

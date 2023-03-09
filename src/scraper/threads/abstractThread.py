@@ -90,5 +90,5 @@ class AbstractThread(threading.Thread, metaclass=abc.ABCMeta):
   def on_start(self):
     response = requests.get(self.base_url, headers = self.headers)
     bs = BeautifulSoup(response.text, "html.parser")
-    self.articles = bs.find_all("article")
+    self.articles = bs.find_all("article")[:25]
         
