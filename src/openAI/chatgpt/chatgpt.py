@@ -26,7 +26,7 @@ class ChatGPT:
             
             {data}\n""")
         
-        self.ask("wat vroeg ik net aan je ?")
+        self.ask("Kun je me een prompt geven, eventueel in een specifieke stijl of door een specifieke kunstenaar ?")
     
     def append_to_history(self, data):
         print(data)

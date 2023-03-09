@@ -13,8 +13,8 @@ import openai
 threads: List[AbstractThread] = []
 
 def main():
-  #scraped_data = start_scraping()
-  ChatGPT().start_new_conversation("scraped_data")
+  scraped_data = start_scraping()
+  ChatGPT().start_new_conversation(scraped_data)
 
 
 def start_scraping():

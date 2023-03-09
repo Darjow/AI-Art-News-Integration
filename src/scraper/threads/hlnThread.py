@@ -23,15 +23,14 @@ class HLNThread(AbstractThread):
       "Accept-Encoding": "gzip, deflate, br",
       "Accept-Language": "nl-NL,nl;q=0.8",
       "Cache-Control": "max-age=0",
-      "Cookie":"authId=84f9c58f-0da1-4752-a294-74df52a18ec8; authId=84f9c58f-0da1-4752-a294-74df52a18ec8;",
+      "Cookie":"authId=84f9c58f-0da1-4752-a294-74df52a18ec8;",
     }
     
     
 
 
   def start_scraping(self): 
-    self.articles.append(f"{self.base_url}{self.routes[0]}")
-    
+    self.articles.append(f"{self.base_url}")
     
     while len(self.articles) > 0:
       print(f"[{type(self).__name__}]: {len(self.articles)} to process")
