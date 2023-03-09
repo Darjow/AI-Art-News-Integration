@@ -13,6 +13,11 @@ import openai
 threads: List[AbstractThread] = []
 
 def main():
+  #scraped_data = start_scraping()
+  ChatGPT().start_new_conversation("scraped_data")
+
+
+def start_scraping():
   volatile_dict = VolatileDict()
   
   hln_thread = HLNThread(volatile_dict)
@@ -26,8 +31,9 @@ def main():
   for future in futures:
     future.result()
     
-  parsed_data = volatile_dict.output_dict()  
-  print(ChatGPT().ask(parsed_data))
-
+  return volatile_dict.output_dict()  
+  
+  
+  
 if __name__ == "__main__":
   main()
