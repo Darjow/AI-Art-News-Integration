@@ -16,26 +16,30 @@ class ChatGPT:
     def start_new_conversation(self, data):
         self.conversation = []
         
+        self.ask("""
+                 Ik zou graag een kunstwerk willen genereren met dall-e gebaseerd op de hoogtepunten van vandaag. Ik heb enkele artikels gevonden van vandaag.
+                 Kun jij voor mij bepalen welke artikels met een verschillende website_url gelijkenissen hebben?                 
+                 """)
+        
         self.ask(f"""
-            Ik zou graag een kunstwerk willen genereren met dall-e, gebaseerd op de hoogtepunten van vandaag. 
-            Kun je kijken naar de verschillende artikels en zien welke artikels overeenkomen met artikels van een andere website_uri?
-            Als er overeenkomstige berichten zijn, dan wil ik dat ze prioritair zijn ten opzichte van andere artikels.
-            Geef me dan één zin die deze berichten combineert samen met een kunstenaal om een kunstwerk te genereren. 
-            Deze zin moet een duidelijke boodschap weergeven van de hoogtepunten van de dag en moet als een prompt voor Dall-e voorzien worden.
-            In de volgende JSON vind je de volgende gegevens: "website_uri": [lijst van artikel titels]. \n
-            
-            {data}\n
-            
-            """)
+                 Welke artikels zijn er het belangrijkst als je afgaat op vaakst voorkomende artikel met verschillend website urls?
+                 Hieronder vind je de artikels in json formaat. Ik wil dat je een boodschap of thema hieruit haalt
+                 [website_url : [artikels], ... ]
+                 
+                 {data}
+                 """)
         
+        self.ask("Als je voor mij hier één kernzin kan uithalen; een samenvatting. Welke zou het dan zijn?")
         
-        #backup als parsing faalt: jij:     'De prompt die ik zou aanbieden is: "Een wereldkaart met verschillende kleuren om de politieke, economische, militaire en technologische conflicten te symboliseren, geschilderd door Banksy.'
-        data = self.ask("Reageer enkel met een prompt, en in een specifieke stijl en/of door een specifieke kunstenaar.")
+        self.ask("Maak voor mij een kernboodschap op basis van voorgaand JSON.")
         
-        try:
-          data = data.split('"')[1]
-        except:
-          pass    
+        self.ask("""
+                 Ik zou dit nu graag laten genereren door dall-e om een kunstwerk te krijgen. 
+                 Wat zou een goede prompt kunnen zijn die een kernboodschap weergeeft van de artikels? Vergeet geen schilder of stijl erbij te zeggen.
+                 """)
+        
+        data = self.ask("Reageer enkel met een prompt en zet deze tussen quotes zet er ook bij door welke kunstenaar deze is geschilderd.")
+      
         
         self.ask("Op basis van welke kernartikels heb je dit gehaald?")
         
