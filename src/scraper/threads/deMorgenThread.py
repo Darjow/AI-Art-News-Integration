@@ -4,8 +4,8 @@ from bs4 import BeautifulSoup
 import requests
 
 class DeMorgenThread(AbstractThread):
-  def __init__(self, volatile_dict: VolatileDict):
-    super().__init__(volatile_dict, "%d %B %Y", "p", "artstyle__intro", "time","artstyle__production__datetime", "https://www.demorgen.be", [])
+  def __init__(self, volatile_dict: VolatileDict):    
+    super().__init__(volatile_dict, "%d %B %Y", "h1", "artstyle__header-title", "time","artstyle__production__datetime", "https://www.demorgen.be", [])
 
   
   def on_start(self):

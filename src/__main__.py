@@ -9,14 +9,18 @@ import locale
 import os
 import openai
 
+#regel van pareto
+
 
 threads: List[AbstractThread] = []
 
 def main():
   scraped_data = start_scraping()
-  prompt = ChatGPT().start_new_conversation(scraped_data)
+  print(scraped_data)
   
-  print("TODO: dall-E generate link and send prompt: " + prompt)
+  #prompt = ChatGPT().start_new_conversation(scraped_data)
+  
+  #print("TODO: dall-E generate link and send prompt: " + prompt)
   
 def start_scraping():
   volatile_dict = VolatileDict()
