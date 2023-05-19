@@ -16,9 +16,7 @@ threads: List[AbstractThread] = []
 
 def main():
   scraped_data = start_scraping()
-  print(scraped_data)
-  
-  #prompt = ChatGPT().start_new_conversation(scraped_data)
+  prompt = ChatGPT().start_new_conversation(scraped_data)
   
   #print("TODO: dall-E generate link and send prompt: " + prompt)
   
