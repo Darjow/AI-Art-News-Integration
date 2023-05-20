@@ -1,5 +1,4 @@
 from openAI.util import config
-import requests
 import openai
 
 class RequestHandler:
@@ -10,3 +9,6 @@ class RequestHandler:
     response = openai.ChatCompletion.create(model="gpt-3.5-turbo",messages = conversation)
     generated_text = response["choices"][0].message.content.strip()
     return generated_text
+  
+  def generate_image(self, prompt):
+    return openai.Image.create(prompt = prompt, n=1, size="1024x1024")["data"][0]["url"]
