@@ -40,7 +40,7 @@ class ChatGPT:
               Vergeet geen schilder en stijl erbij te zeggen.
               """)
     
-    data = self.ask("Reageer enkel met een prompt en zet deze tussen quotes zet er ook bij door welke kunstenaar deze is geschilderd.")
+    data = self.ask("Reageer enkel met een prompt die deze kernboodschap weergeeft en zet deze tussen quotes zet er ook bij door welke kunstenaar deze is geschilderd of in welke stijl.")
   
     
     self.ask("Op basis van welke kernartikels heb je dit gehaald?")
