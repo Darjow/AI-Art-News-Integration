@@ -20,7 +20,6 @@ class ChatGPT:
               Ik zou graag een kunstwerk willen genereren met dall-e gebaseerd op de hoogtepunten van vandaag. 
               Ik heb enkele artikels gevonden van vandaag, en deze gegroepeerd per url.
               Ik heb enkel de titel van het artikel opgeslaan. 
-              Hoe eerder ze voorkomen hoe belangrijker ze zijn.
               """)
     
     self.ask(f"""
@@ -32,15 +31,15 @@ class ChatGPT:
     
     self.ask("Als je voor mij hier één kernzin kan uithalen; een samenvatting. Welke zou het dan zijn?")
     
-    self.ask("Maak voor mij een kernboodschap op basis van voorgaand JSON. Houd de boodschap beperkt zodat het zeker duidelijk is in het kunstwerk.")
+    self.ask("Maak voor mij een kernboodschap op basis van voorgaand JSON. Houd de boodschap beperkt tot één artikel.")
     
     self.ask("""
               Ik zou dit nu graag laten genereren door dall-e om een kunstwerk te krijgen. 
-              Wat zou een goede prompt kunnen zijn die een kernboodschap weergeeft van de artikels?
-              Vergeet geen schilder en stijl erbij te zeggen.
+              Wat zou een goede prompt kunnen zijn die een kernboodschap weergeeft van de belangrijkste artikel, de boodschap moet goed overkomen.
+              Vergeet geen stijl erbij te zeggen.
               """)
     
-    data = self.ask("Reageer enkel met een prompt die deze kernboodschap weergeeft en zet deze tussen quotes zet er ook bij door welke kunstenaar deze is geschilderd of in welke stijl.")
+    data = self.ask("Reageer enkel met een prompt die deze kernboodschap weergeeft en zet deze tussen quotes zet er ook bij door welke kunstenaar deze is geschilderd of in welke stijl. Gebruik maximum 75 karakters.")
   
     
     self.ask("Op basis van welke kernartikels heb je dit gehaald?")
