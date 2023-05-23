@@ -13,25 +13,24 @@ class ChatGPT:
     
     return response
     
-  def start_new_conversation(self, data):
+  def start_new_conversation(self, data, date):
     self.conversation = []
     
-    self.ask("""
-              Ik zou graag een kunstwerk willen genereren met dall-e gebaseerd op de hoogtepunten van vandaag. 
-              Ik heb enkele artikels gevonden van vandaag, en deze gegroepeerd per url.
-              Ik heb enkel de titel van het artikel opgeslaan. 
+    self.ask(f"""
+              Ik zou graag een kunstwerk willen genereren met dall-e gebaseerd op de hoogtepunten van {date.day} {date.month} {date.year}. 
+              Ik heb enkele artikels gevonden van deze dag en de titel opgeslaan.
               """)
     
     self.ask(f"""
               Welke artikels zijn er het belangrijkst volgens jou, rekeninghoudend met vorige criteria. 
-              Hieronder vind je de artikels in json formaat, gegroepeerd per url van belangrijk naar minder belangrijk. 
+              Hieronder vind je de artikels opgelijst. 
               
               {data}
               """)
     
     self.ask("Als je voor mij hier één kernzin kan uithalen; een samenvatting. Welke zou het dan zijn?")
     
-    self.ask("Maak voor mij een kernboodschap op basis van voorgaand JSON. Houd de boodschap beperkt tot één artikel.")
+    self.ask("Maak voor mij een kernboodschap op basis van voorgaand artikels. Houd de boodschap beperkt tot één artikel.")
     
     self.ask("""
               Ik zou dit nu graag laten genereren door dall-e om een kunstwerk te krijgen. 

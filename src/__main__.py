@@ -1,12 +1,13 @@
 from openAI.chatgpt import ChatGPT
 from openAI.dalle import DallE
-from scraper.Scraper import Scraper
-
+from scraper.threads.StandaardScraper import StandaardScraper
+from datetime import datetime
 
 
 def main():
-  scraped_data = Scraper().start_scraping()
-  prompt = ChatGPT().start_new_conversation(scraped_data)
+  date = datetime(2001, 9, 11)
+  scraped_data = StandaardScraper(date).start_scraping()
+  prompt = ChatGPT().start_new_conversation(scraped_data, date)
   image = DallE().generate_image(prompt)
   print(image)
   
