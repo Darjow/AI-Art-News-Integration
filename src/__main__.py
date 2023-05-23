@@ -5,7 +5,7 @@ from datetime import datetime
 
 
 def main():
-  date = datetime(2001, 9, 11)
+  date = datetime(2019, 4, 15)
   scraped_data = StandaardScraper(date).start_scraping()
   prompt = ChatGPT().start_new_conversation(scraped_data, date)
   image = DallE().generate_image(prompt)

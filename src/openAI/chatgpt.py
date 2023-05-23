@@ -18,20 +18,17 @@ class ChatGPT:
     
     self.ask(f"""
               Ik zou graag een kunstwerk willen genereren met dall-e gebaseerd op de hoogtepunten van {date.day} {date.month} {date.year}. 
-              Ik heb enkel de titel van het artikel opgeslaan. 
+              Ik heb enkel de titel van de artikels opgeslaan. Uiteraard is jou kennis over deze dag niet minder belangrijk.
               """)
     
     self.ask(f"""
-              Welke artikels zijn er het belangrijkst volgens jou, rekeninghoudend met vorige criteria. 
               Hieronder vind je de artikels.
               
               {data}
               """)
     
-    self.ask("Als je voor mij hier één kernzin kan uithalen; een samenvatting. Welke zou het dan zijn?")
-    
-    self.ask("Maak voor mij een kernboodschap op basis van voorgaande artikels. Houd de boodschap beperkt tot één artikel.")
-    
+    self.ask("Als je voor mij hier één kernzin kan uithalen van deze dag; een samenvatting. Welke zou het dan zijn?")
+        
     self.ask("""
               Ik zou dit nu graag laten genereren door dall-e om een kunstwerk te krijgen. 
               Wat zou een goede prompt kunnen zijn die een kernboodschap weergeeft van de belangrijkste artikel, de boodschap moet goed overkomen.
