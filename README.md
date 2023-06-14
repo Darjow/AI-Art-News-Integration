@@ -21,7 +21,7 @@ This repository contains the following classes and directories:
 Follow these steps to set up the project locally:
 
 1. Clone this repository to your local machine.
-2. Install the required libraries and dependencies needed for bs4, DALLE, and GPT. Refer to the documentation of each library for specific installation instructions.
+2. Install the required libraries and dependencies needed for bs4, openai and others. Refer to the documentation of each library for specific installation instructions.
 3. Create an `.env` file and set an environment variable: `OPENAI_API_KEY=<YOUR-OPEN-AI-API-KEY`
 4. Run `__main__.py` to gather relevant news articles, start the conversation with GPT, and prompts DALL·E to generate an artpiece.
 
